@@ -57,7 +57,7 @@ syn match   dustjsPartialUnclosed /\/\@<!}/ contained
 
 syn region  dustjsParamName       start=/\v^|[\t ]/ end=/=/me=e-1,he=e-1 contained nextgroup=dustjsParamValueAtom,dustjsParamValueExpr oneline
 syn region  dustjsParamValueAtom  start=/=/hs=s+1 end=/\v[^0-9a-zA-Z_$]|$/me=e-1,he=e-1 contained oneline
-syn region  dustjsParamValueExpr  start=/=\"/hs=s+1 skip='\\"' end=/\"/ contained oneline
+syn region  dustjsParamValueExpr  start=/=\"/hs=s+1 skip='\\"' end=/\"/ contained oneline contains=dustjsRef,dustjsSpecial
 syn cluster dustjsParams          contains=dustjsParamName,dustjsParamValueAtom,dustjsParamValueExpr
 
 syn region  dustjsSpecial         start='{\~' end='}'
