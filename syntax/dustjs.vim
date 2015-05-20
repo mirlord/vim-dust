@@ -43,20 +43,20 @@ syn region  dustjsComment         start='{!' end='!}'
 
 syn match   dustjsPath            /\v\.|[a-zA-Z_$][0-9a-zA-Z_$]*/ contained
 syn match   dustjsFilter          /\v\|[a-zA-Z_$][0-9a-zA-Z_$]*/ contained
+syn match   dustjsNoFilter        /|/ contained
 syn cluster dustjsIdentifier      contains=dustjsPath,dustjsFilter
 
 syn region  dustjsSection         start='\v[{][#?^<+@%:]' end='\v[/]?[}]' contains=dustjsPath,@dustjsParams,dustjsSectionUnclosed,dustjsNoFilter
-syn region  dustjsSectionClose    start='{/' end='}' contains=dustjsPath
+syn region  dustjsSectionClose    start='{/' end='}' contains=dustjsPath,dustjsNoFilter
 syn match   dustjsSectionUnclosed /\/[ \t]\+}/ contained
-syn match   dustjsNoFilter /|/ contained
 
 syn region  dustjsPartial         start='{>' end='}' contains=dustjsPartialName,dustjsPartialPath,@dustjsParams,dustjsPartialUnclosed,dustjsSectionUnclosed,dustjsNoFilter
 syn match   dustjsPartialName     />\@<=\v[a-zA-Z_$][0-9a-zA-Z_$]*/ contained
 syn match   dustjsPartialPath     />\@<=\v\"(([a-zA-Z_$][0-9a-zA-Z_$]*)|\/|\.)*\"/ contained
 syn match   dustjsPartialUnclosed /\/\@<!}/ contained
 
-syn region  dustjsParamName       start=/\v^|[\t ]/ end=/=/me=e-1,he=e-1 contained nextgroup=dustjsParamValueAtom,dustjsParamValueExpr oneline
-syn region  dustjsParamValueAtom  start=/=/hs=s+1 end=/\v[^0-9a-zA-Z_$]|$/me=e-1,he=e-1 contained oneline
+syn region  dustjsParamName       start=/[\t ]/ end=/=/me=e-1,he=e-1 contained nextgroup=dustjsParamValueAtom,dustjsParamValueExpr oneline
+syn region  dustjsParamValueAtom  start=/=/hs=s+1 end=/\v[0-9a-zA-Z_$]*/ contained oneline
 syn region  dustjsParamValueExpr  start=/=\"/hs=s+1 skip='\\"' end=/\"/ contained oneline contains=dustjsRef,dustjsSpecial
 syn cluster dustjsParams          contains=dustjsParamName,dustjsParamValueAtom,dustjsParamValueExpr
 
