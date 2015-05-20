@@ -65,7 +65,7 @@ syn region  dustjsSpecial         start='{\~' end='}'
 HiLink dustjsSection              Statement
 HiLink dustjsSectionClose         Statement
 HiLink dustjsComment              Comment
-HiLink dustjsRef                  Identifier
+HiLink dustjsRef                  Statement
 HiLink dustjsPath                 Identifier
 HiLink dustjsFilter               Special
 HiLink dustjsSpecial              Special
