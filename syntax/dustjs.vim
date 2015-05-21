@@ -37,7 +37,7 @@ endif
 
 syn region  dustjsUnmatched       matchgroup=dustjsUnmatchedBars start='{' end='}'
 
-syn region  dustjsRef             start='\v[{][^ \t]'he=e-1 end='}' contains=@dustjsIdentifier oneline
+syn region  dustjsRef             start='\v[{][^ \t]'he=e-1 end='}' contains=@dustjsIdentifier oneline containedin=@htmlDustjsContainer
 
 syn region  dustjsComment         start='{!' end='!}'
 
@@ -46,8 +46,8 @@ syn match   dustjsFilter          /\v\|[a-zA-Z_$][0-9a-zA-Z_$]*/ contained
 syn match   dustjsNoFilter        /|/ contained
 syn cluster dustjsIdentifier      contains=dustjsPath,dustjsFilter
 
-syn region  dustjsSection         start='\v[{][#?^<+@%:]' end='\v[/]?[}]' contains=dustjsPath,@dustjsParams,dustjsSectionUnclosed,dustjsNoFilter
-syn region  dustjsSectionClose    start='{/' end='}' contains=dustjsPath,dustjsNoFilter
+syn region  dustjsSection         start='\v[{][#?^<+@%:]' end='\v[/]?[}]' contains=dustjsPath,@dustjsParams,dustjsSectionUnclosed,dustjsNoFilter containedin=@htmlDustjsContainer
+syn region  dustjsSectionClose    start='{/' end='}' contains=dustjsPath,dustjsNoFilter containedin=@htmlDustjsContainer
 syn match   dustjsSectionUnclosed /\/[ \t]\+}/ contained
 
 syn region  dustjsPartial         start='{>' end='}' contains=dustjsPartialName,dustjsPartialPath,@dustjsParams,dustjsPartialUnclosed,dustjsSectionUnclosed,dustjsNoFilter
@@ -60,7 +60,9 @@ syn region  dustjsParamValueAtom  start=/=/hs=s+1 end=/\v[0-9a-zA-Z_$]*/ contain
 syn region  dustjsParamValueExpr  start=/=\"/hs=s+1 skip='\\"' end=/\"/ contained oneline contains=dustjsRef,dustjsSpecial
 syn cluster dustjsParams          contains=dustjsParamName,dustjsParamValueAtom,dustjsParamValueExpr
 
-syn region  dustjsSpecial         start='{\~' end='}'
+syn region  dustjsSpecial         start='{\~' end='}' containedin=@htmlDustjsContainer
+
+syn cluster htmlDustjsContainer   add=htmlHead,htmlTitle,htmlString,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,htmlLink,htmlBold,htmlUnderline,htmlItalic,htmlValue
 
 HiLink dustjsSection              Statement
 HiLink dustjsSectionClose         Statement
